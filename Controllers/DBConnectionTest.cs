@@ -138,18 +138,15 @@ namespace DBConnExample.Controllers
 
         }
 
-        [HttpGet("injectionr/{searchString}")]
+        [HttpGet("injection/{searchString}")]
         public List<Customer> Injection(string searchString) {
             List<Customer> customers = new List<Customer>();
 
             SqlConnection conn = new SqlConnection(this.connectionString);
 
-            //string queryString = "Select * From Customer WHERE LastName LIKE \'%" + searchString + "%\'";
-            string queryString = "Select * From Customer WHERE LastName = '" + searchString + "'";
+            string queryString = "Select * From Customer WHERE LastName = @LastName";
 
-            SqlCommand command = new SqlCommand( queryString, conn);
-            // command.Parameters.Add("@LastName", System.Data.SqlDbType.NVarChar);
-            // command.Parameters["@LastName"].Value = $"\'%{searchString}%\'";
+            SqlCommand command = new SqlCommand(queryString, conn);
             command.Parameters.AddWithValue("@LastName", searchString);
 
             conn.Open();

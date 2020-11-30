@@ -32,14 +32,14 @@ namespace DBConnExample.Controllers
         }
 
         [HttpGet("{searchString}")]
-        public List<Customer> Injection(string searchString) {
+        public List<Customer> GetCustomer(string searchString) {
             List<Customer> customers = new List<Customer>();
 
             SqlConnection conn = new SqlConnection(this.connectionString);
 
             string queryString = "Select * From Customer WHERE LastName = '" + searchString + "'";
 
-            SqlCommand command = new SqlCommand( queryString, conn);
+            SqlCommand command = new SqlCommand(queryString, conn);
 
             conn.Open();
         
