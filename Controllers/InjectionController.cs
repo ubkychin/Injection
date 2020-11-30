@@ -37,13 +37,9 @@ namespace DBConnExample.Controllers
 
             SqlConnection conn = new SqlConnection(this.connectionString);
 
-            //string queryString = "Select * From Customer WHERE LastName LIKE \'%" + searchString + "%\'";
             string queryString = "Select * From Customer WHERE LastName = '" + searchString + "'";
 
             SqlCommand command = new SqlCommand( queryString, conn);
-            // command.Parameters.Add("@LastName", System.Data.SqlDbType.NVarChar);
-            // command.Parameters["@LastName"].Value = $"\'%{searchString}%\'";
-            command.Parameters.AddWithValue("@LastName", searchString);
 
             conn.Open();
         
