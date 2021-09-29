@@ -37,7 +37,7 @@ namespace DBConnExample.Controllers
 
             SqlConnection conn = new SqlConnection(this.connectionString);
 
-            string queryString = "Select * From Customer WHERE LastName = '" + searchString + "'";
+            string queryString = "Select * From Customer WHERE surname = '" + searchString + "'";
 
             SqlCommand command = new SqlCommand(queryString, conn);
 
@@ -52,7 +52,7 @@ namespace DBConnExample.Controllers
                     
                     // ORM - Object Relation Mapping
                     customers.Add(
-                        new Customer() { Id = (int)reader[0], FirstName = reader[1].ToString(), Surname = reader[2].ToString()});                
+                        new Customer() { Id = (int)reader[0], FirstName = reader[1].ToString(), Surname = reader[2].ToString(), Password = reader[3].ToString()});                
                 }
             }
 
