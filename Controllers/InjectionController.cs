@@ -37,7 +37,7 @@ namespace DBConnExample.Controllers
 
             SqlConnection conn = new SqlConnection(this.connectionString);
 
-            string queryString = "Select * From Customer WHERE surname = '" + searchString + "'";
+            string queryString = "Select * From Customer WHERE lastname = '" + searchString + "'";
 
             SqlCommand command = new SqlCommand(queryString, conn);
 
@@ -52,11 +52,42 @@ namespace DBConnExample.Controllers
                     
                     // ORM - Object Relation Mapping
                     customers.Add(
-                        new Customer() { Id = (int)reader[0], FirstName = reader[1].ToString(), Surname = reader[2].ToString(), Password = reader[3].ToString()});                
+                        new Customer() { Id = (int)reader[0], Username=reader[1].ToString(), FirstName = reader[2].ToString(), LastName = reader[3].ToString(), Password = reader[4].ToString()});                
                 }
             }
 
             return customers;
         }
+
+        [HttpPost]
+        public bool Login(LoginModel login) {
+            SqlConnection conn = new SqlConnection(this.connectionString);
+
+            string queryString = $"Select * From Customer WHERE username = '{login.Username}' AND password = '{login.Password}'";
+
+            SqlCommand command = new SqlCommand(queryString, conn);
+
+            conn.Open();
+        
+            int count = 0;
+            using(SqlDataReader reader = command.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    count++;               
+                }
+            }
+
+            if (count > 0) {
+                return true;
+            }
+
+            return false;
+        }
+    }
+
+    public class LoginModel {
+        public string Username { get; set; }
+        public string Password { get; set; }
     }
 }
