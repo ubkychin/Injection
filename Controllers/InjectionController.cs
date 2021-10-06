@@ -37,7 +37,7 @@ namespace DBConnExample.Controllers
 
             SqlConnection conn = new SqlConnection(this.connectionString);
 
-            string queryString = "Select * From Customer WHERE lastname = '" + searchString + "'";
+            string queryString = "Select * From Customer WHERE username = '" + searchString + "'";
 
             SqlCommand command = new SqlCommand(queryString, conn);
 
